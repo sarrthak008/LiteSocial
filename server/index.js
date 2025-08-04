@@ -4,6 +4,9 @@ import cors from "cors";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 
+import multer from "multer"
+import upload from "./middleware/multer.js";
+
 
 const PORT = 3000 || process.env.PORT
 const app = express();
@@ -39,6 +42,10 @@ import { signup ,login } from "./controllers/authControl.js";
 
 app.post("/signup",signup);
 app.post("/login",login);
+
+app.post("/upload",upload.single("file"),(req,res)=>{
+   console.log(req.file)
+})
 
 
 app.listen(PORT,()=>{
