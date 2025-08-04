@@ -2,6 +2,7 @@ import { Schema, model } from "mongoose";
 
 
 const userSchema = new Schema({
+
     name: {
         type: String,
         required: true
@@ -18,9 +19,42 @@ const userSchema = new Schema({
         type: String,
         required: true,
         unique: true
-    }
+    },
+    user_info: {
+        bio: {
+            type: String,
+            default: "i am user of LiteSocial"
+        },
+        location: {
+            type: String,
+        },
+        userProfile: {
+            type: String,
+            default: "https://static.vecteezy.com/system/resources/thumbnails/001/840/618/small/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg"
+        },
+        accountType: {
+            type: String,
+            default: "public",
+            enum: ["public", "private"]
+        }
+    },
+
+    posts: [{
+        type: Schema.Types.ObjectId,
+        ref: "Posts"
+    }],
+
+    followers: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }]
+    ,
+    following: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }]
 })
 
 
-const User = model("User",userSchema)
+const User = model("User", userSchema)
 export default User
