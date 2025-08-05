@@ -6,6 +6,12 @@ import cookieParser from "cookie-parser";
 
 import multer from "multer"
 import upload from "./middleware/multer.js";
+import fs from "fs";
+
+
+import imageKitConfig from "./config/imagekitConfig.js"
+let imagekit = imageKitConfig();
+
 
 
 const PORT = 3000 || process.env.PORT
@@ -14,21 +20,21 @@ const app = express();
 //millderwares
 
 app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
 
 app.use(cors({
-    origin:[],
-    methods:["GET","POST","PUT","DELETE","PATCH"],
-    credentials:true
+    origin: [],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true
 }))
 app.use(cookieParser())
 app.use(session({
-    secret : process.env.SESSION_SECRECT,
-    resave:false,
-    saveUninitialized:true,
-    cookie:{
-        maxAge: 24*60*60*1000,
-        httpOnly:true
+    secret: process.env.SESSION_SECRECT,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000,
+        httpOnly: true
     }
 }))
 
@@ -36,19 +42,18 @@ app.use(session({
 import connectdb from "./config/connectdb.js";
 
 
+
 // controllers
-import { signup ,login } from "./controllers/authControl.js";
+import { signup, login } from "./controllers/authControl.js";
+import {uploadrpofile} from "./controllers/postsControl.js"
 
 
-app.post("/signup",signup);
-app.post("/login",login);
-
-app.post("/upload",upload.single("file"),(req,res)=>{
-   console.log(req.file)
-})
+app.post("/signup", signup);
+app.post("/login", login);
+app.post("/uploadrpofile",upload.single("image"),uploadrpofile)
 
 
-app.listen(PORT,()=>{
+app.listen(PORT, () => {
     console.log(`server listen on the port ${PORT}`);
     connectdb()
 })
