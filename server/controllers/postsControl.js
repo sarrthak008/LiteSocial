@@ -1,17 +1,22 @@
 import responder from "../utils/responder.js"
 import uploadToImageKit from "../utils/uploadToImgKit.js"
+import User from "../models/user.model.js"
 
 const uploadrpofile = async (req,res)=>{
 
    try {
-      if(! req.file){
-        return responder(res,null,400,false,"image is required")
+      if(!req._id || !req.file){
+         return responder(res,null,400,false,"something went wrong")
       }else{
-         let imgInfo = await uploadToImageKit(req.file)
-         return responder(res,imgInfo,200,true,"image upload successfully")
+        let url = await uploadToImageKit(req.file)
+        let findedUser = await User.findById(req._id);
+        findedUser.user_info.userProfile = url
+        await findedUser.save()
+        return responder(res,null,200,true,"profile updated successfully")
       }
+
    } catch (error) {
-      console.log(error)
+      return responder(res,null,500,false,`${error.message}`)
    }
 }
 

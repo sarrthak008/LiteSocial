@@ -46,11 +46,14 @@ import connectdb from "./config/connectdb.js";
 // controllers
 import { signup, login } from "./controllers/authControl.js";
 import {uploadrpofile} from "./controllers/postsControl.js"
+import { verifyJwt } from "./middleware/verifyjwt.js";
 
+
+//middlewares 
 
 app.post("/signup", signup);
 app.post("/login", login);
-app.post("/uploadrpofile",upload.single("image"),uploadrpofile)
+app.post("/uploadrpofile",verifyJwt,upload.single("file"),uploadrpofile)
 
 
 app.listen(PORT, () => {
