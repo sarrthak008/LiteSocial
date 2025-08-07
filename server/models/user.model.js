@@ -52,6 +52,20 @@ const userSchema = new Schema({
     following: [{
         type: Schema.Types.ObjectId,
         ref: "User"
+    }],
+
+    notifications: [
+        {
+            text: {
+                type: String,
+                required: true
+            }
+        }
+    ],
+
+    requets: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
     }]
 })
 

@@ -46,7 +46,7 @@ import connectdb from "./config/connectdb.js";
 // controllers
 import { signup, login } from "./controllers/authControl.js";
 import {uploadrpofile} from "./controllers/postsControl.js"
-import {updateBioOrLocation,uploadPost} from "./controllers/userActionControl.js"
+import {updateBioOrLocation,uploadPost,loadloginUserInfo,sendfollowRequest,acceptorRejectRequest} from "./controllers/userActionControl.js"
 
 //middlewares 
 import { verifyJwt } from "./middleware/verifyjwt.js";
@@ -56,6 +56,10 @@ app.post("/login", login);
 app.post("/uploadrpofile",verifyJwt,upload.single("file"),uploadrpofile)
 app.post("/updatebioorlocation",verifyJwt,updateBioOrLocation)
 app.post("/uploadpost",verifyJwt,upload.single("post"),uploadPost)
+app.get("/mydashboard",verifyJwt,loadloginUserInfo)
+app.get("/request/:id",verifyJwt,sendfollowRequest)
+app.post("/acceptorrejectrequest/:id",verifyJwt,acceptorRejectRequest)
+
 
 app.listen(PORT, () => {
     console.log(`server listen on the port ${PORT}`);
