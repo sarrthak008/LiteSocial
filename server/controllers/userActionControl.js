@@ -29,10 +29,10 @@ const updateBioOrLocation = async (req, res) => {
 
 const uploadPost = async (req, res) => {
    try {
-      //  console.log(req._id,req.file)
+      console.log(req._id, req.file)
 
       if (!req._id || !req.file) {
-         return responder(res, null, 400, false, "something went wrong")
+         return responder(res, null, 400, false, "something went wrong1")
       }
 
       let { title, description } = req.body
@@ -179,4 +179,34 @@ const acceptorRejectRequest = async (req, res) => {
    }
 }
 
-export { updateBioOrLocation, uploadPost, loadloginUserInfo, sendfollowRequest, acceptorRejectRequest }
+
+let getuser = async (req, res) => {
+
+   try {
+      let id = req.params.id;
+      if (!id) {
+         return responder(res, null, 400, false, "something went wrong")
+      }
+      let findedUser = await User.findById(id).select("-password -__v -notifications -requets ")
+      if (!findedUser) {
+         return responder(res, null, 400, false, "user not found")
+      }
+      if (findedUser.user_info.accountType === "private") {
+
+         return responder(res, findedUser, 200, true, "user found")
+
+      } else {
+
+         let publicUser = await User.findById(id).select("-password -__v -notifications -requets ").populate("following", "user_info name user_name _id").populate("followers", "user_info name user_name _id").populate("posts")
+         return responder(res, publicUser, 200, true, "user found ")
+
+      }
+
+   } catch (error) {
+      return responder(res, null, 500, false, `${error.message}`)
+   }
+
+}
+
+
+export { updateBioOrLocation, uploadPost, loadloginUserInfo, sendfollowRequest, acceptorRejectRequest, getuser }
