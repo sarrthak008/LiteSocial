@@ -4,13 +4,8 @@ import cors from "cors";
 import session from "express-session";
 import cookieParser from "cookie-parser";
 
-import multer from "multer"
-import upload from "./middleware/multer.js";
-import fs from "fs";
 
 
-import imageKitConfig from "./config/imagekitConfig.js"
-let imagekit = imageKitConfig();
 
 
 
@@ -23,8 +18,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use(cors({
-    origin: [],
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    origin: ["http://localhost:5173"],
     credentials: true
 }))
 app.use(cookieParser())
@@ -45,11 +39,13 @@ import connectdb from "./config/connectdb.js";
 
 // controllers
 import { signup, login } from "./controllers/authControl.js";
-import {uploadrpofile,likepost,comment} from "./controllers/postsControl.js"
-import {updateBioOrLocation,uploadPost,loadloginUserInfo,sendfollowRequest,acceptorRejectRequest ,getuser} from "./controllers/userActionControl.js"
+import {uploadrpofile,likepost,comment,getPosts ,addLiteMoment} from "./controllers/postsControl.js"
+import {updateBioOrLocation,uploadPost,loadloginUserInfo,sendfollowRequest,acceptorRejectRequest ,getuser } from "./controllers/userActionControl.js"
 
 //middlewares 
 import { verifyJwt } from "./middleware/verifyjwt.js";
+import upload from "./middleware/multer.js";
+
 
 app.post("/signup", signup);
 app.post("/login", login);
@@ -62,6 +58,10 @@ app.post("/acceptorrejectrequest/:id",verifyJwt,acceptorRejectRequest)
 app.get("/getuser/:id",getuser)
 app.get("/likepost/:postid",verifyJwt,likepost)
 app.post("/comment/:postid",verifyJwt,comment)
+app.get("/getposts",getPosts)
+app.post("/addlitemoment",verifyJwt,upload.single("moment"),addLiteMoment)
+
+
 
 app.get("/health",(req,res)=>{
     res.json({
@@ -69,6 +69,7 @@ app.get("/health",(req,res)=>{
         message:"server is up and running"
     })
 })
+
 
 app.listen(PORT, () => {
     console.log(`server listen on the port ${PORT}`);

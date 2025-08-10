@@ -38,7 +38,6 @@ const userSchema = new Schema({
             enum: ["public", "private"]
         }
     },
-
     posts: [{
         type: Schema.Types.ObjectId,
         ref: "Posts"
@@ -66,7 +65,33 @@ const userSchema = new Schema({
     requets: [{
         type: Schema.Types.ObjectId,
         ref: "User"
-    }]
+    }],
+
+    liteMoments: [
+        {
+            moments_pic: {
+                type: String,
+                require: true
+            },
+
+            views: [
+                {
+                    type: Schema.Types.ObjectId,
+                    ref: "User"
+                }
+            ],
+
+            caption: {
+                type: String
+            },
+
+            addAt: {
+                type: Date,
+                default: Date.now()
+            }
+        }
+    ]
+
 })
 
 

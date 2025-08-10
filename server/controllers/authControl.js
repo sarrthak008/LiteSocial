@@ -49,16 +49,14 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
+
     try {
         let { email, password } = req.body;
 
-        let requiredData = ["email", "password"];
+        if (!email || !password) {
+            return responder(res, null, 400, false, "Email and password are required");
+        }
 
-        requiredData.forEach((data) => {
-            if (!(req.body[data])) {
-                return responder(res, null, 400, false, `${data} is required`)
-            }
-        });
 
         let foundedUser = await User.findOne({ email });
 
@@ -79,8 +77,11 @@ const login = async (req, res) => {
         }, process.env.JWT_SECRECT)
 
         req.session.token = token // storing token on the session .....
-        return responder(res, null, 200, true, "login successfully")
-
+        return responder(res, {
+            _id: foundedUser._id,
+            email: foundedUser.email,
+            user_name: foundedUser.user_name,
+        }, 200, true, "login successfully")
 
     } catch (error) {
         return responder(res, null, 500, false, `${error.message}`)
