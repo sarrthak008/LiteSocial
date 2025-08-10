@@ -19,8 +19,11 @@ const PostSchema = new Schema({
         }]
     },
     comments: [{
-        type: Schema.Types.ObjectId,
-        ref: "user",
+        commentBy:{
+            type:Schema.Types.ObjectId,
+            ref:"User",
+            required:true
+        },
         text: {
             type: String,
             required: true
@@ -30,10 +33,14 @@ const PostSchema = new Schema({
     hashtags: [{
         type: String,
         default: "#LiteSocial"
-    }]
+    }],
 
-
-})
+    createdBy:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
+        required:true
+    }
+},{timestamps:true})
 
 
 let Posts = model("Posts",PostSchema);

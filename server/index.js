@@ -45,7 +45,7 @@ import connectdb from "./config/connectdb.js";
 
 // controllers
 import { signup, login } from "./controllers/authControl.js";
-import {uploadrpofile} from "./controllers/postsControl.js"
+import {uploadrpofile,likepost,comment} from "./controllers/postsControl.js"
 import {updateBioOrLocation,uploadPost,loadloginUserInfo,sendfollowRequest,acceptorRejectRequest ,getuser} from "./controllers/userActionControl.js"
 
 //middlewares 
@@ -60,7 +60,15 @@ app.get("/mydashboard",verifyJwt,loadloginUserInfo)
 app.get("/request/:id",verifyJwt,sendfollowRequest)
 app.post("/acceptorrejectrequest/:id",verifyJwt,acceptorRejectRequest)
 app.get("/getuser/:id",getuser)
+app.get("/likepost/:postid",verifyJwt,likepost)
+app.post("/comment/:postid",verifyJwt,comment)
 
+app.get("/health",(req,res)=>{
+    res.json({
+        data:null,
+        message:"server is up and running"
+    })
+})
 
 app.listen(PORT, () => {
     console.log(`server listen on the port ${PORT}`);

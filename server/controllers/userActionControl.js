@@ -56,7 +56,8 @@ const uploadPost = async (req, res) => {
       let newPost = await Posts.create({
          title: title,
          description: description,
-         image: imgurl
+         image: imgurl,
+         createdBy: req._id
       })
 
       findedUser.posts.push(newPost?._id);
@@ -178,7 +179,6 @@ const acceptorRejectRequest = async (req, res) => {
       return responder(res, null, 500, false, `${error.message}`)
    }
 }
-
 
 let getuser = async (req, res) => {
 
