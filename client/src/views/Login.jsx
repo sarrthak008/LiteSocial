@@ -6,7 +6,9 @@ import AppButton from '../components/AppButton'
 import { Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 const DBURL = import.meta.env.VITE_SERVER_URI
+
 
 const Login = () => {
 
@@ -14,9 +16,11 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [passType, setPassType] = useState("password")
     const [checkVal, setCheckVal] = useState(false)
+    const naviagtor = useNavigate()
 
 
 const handelLogin = async () => {
+
         let tid = toast.loading("try to login...")
         try {
             if (email == "" || password == "") {
@@ -28,6 +32,7 @@ const handelLogin = async () => {
                 toast.dismiss(tid)
                 toast.success(response.data.message)
                 localStorage.setItem("user",JSON.stringify(response.data.data))
+                 naviagtor("/dashboard")
             }
         } catch (error) {
             toast.dismiss(tid)

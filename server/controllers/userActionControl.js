@@ -76,7 +76,7 @@ const loadloginUserInfo = async (req, res) => {
       if (!req._id) {
          return responder(res, null, 400, false, "something went wrong");
       }
-      let findedUser = await User.findById(req._id).select("-password  -__v").populate("posts followers following")
+      let findedUser = await User.findById(req._id).select("-password  -__v").populate("posts followers following liteMoments")
       if (!findedUser) {
          return responder(res, null, 400, false, "user not found")
       } else {
@@ -155,7 +155,7 @@ const acceptorRejectRequest = async (req, res) => {
          return responder(res, null, 400, false, "user not found")
       }
 
-      console.log(logdInUser.requets)
+      // console.log(logdInUser.requets)
 
       if (logdInUser.requets.includes(id)) {
          if (opration === "accept") {

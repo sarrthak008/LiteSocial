@@ -21,29 +21,38 @@ const Signup = () => {
     const handelSignup = async () => {
         let tid = toast.loading("try to signup...")
         try {
-             
-             
-            
+            let result = validSignup(name, username, email, password)
 
-            // let response = await axios.post(`${DBURL}/signup`, {
-            //     name,
-            //     user_name: username,
-            //     email,
-            //     password
-            // },
-            //     { withCredentials: true })
+            if (result.success) {
 
-            // if (response.data.success) {
-            //     toast.dismiss(tid)
-            //     toast.success(response.data.message)
-            //     navigator("/")
-            // }
+                let response = await axios.post(`${DBURL}/signup`, {
+                    name,
+                    user_name: username,
+                    email,
+                    password
+                },
+                    { withCredentials: true })
+
+                if (response.data.success) {
+                    toast.dismiss(tid)
+                    toast.success(response.data.message)
+                    navigator("/")
+                }
+
+            } else {
+                toast.dismiss(tid)
+                toast.error(result.message)
+            }
 
         } catch (error) {
             toast.dismiss(tid)
             toast.error(error?.response?.data.message)
         }
     }
+
+
+
+
 
 
     useEffect(() => {

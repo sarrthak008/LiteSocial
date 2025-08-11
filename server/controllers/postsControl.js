@@ -2,7 +2,9 @@ import responder from "../utils/responder.js"
 import uploadToImageKit from "../utils/uploadToImgKit.js"
 import User from "../models/user.model.js"
 import Posts from "../models/post.model.js"
+import LiteMoments from "../models/litemoments.model.js"
 import _ from "lodash"
+
 
 const uploadrpofile = async (req, res) => {
 
@@ -120,28 +122,33 @@ const getPosts = async (req, res) => {
 }
 
 const addLiteMoment = async (req, res) => {
+   
    try {
       if (!req._id) {
          return responder(res, null, 400, false, "something went wrong")
       }
-
       if (req.file) {
-         const url = await uploadToImageKit(req.file)
+         let url = await uploadToImageKit(req.file)
          if (!url) {
-            return responder(res, null, 400, false, "these feature is currently unavaliable")
+            return responder(res, null, 400, false, "cloud error, try after some time")
          }
-         let findedUser = await User.findById(req._id)
 
-         findedUser.liteMoments.push({
+         let newLiteMoment = await LiteMoments.create({
             moments_pic: url,
-            caption: req.body.caption ? req.body.caption : "LiteScoail moment"
+            caption: req.body.caption,
+            addedBy: req._id
          })
+
+         if (!newLiteMoment) {
+            return responder(res, null, 400, false, "LiteMoments creation error..")
+         }
+
+         let findedUser = await User.findById(req._id);
+         findedUser.liteMoments.push(newLiteMoment._id)
          await findedUser.save()
-
-         return responder(res, null, 200, true, "lite moment added successfully")
-
+         return responder(res, null, 200, true, "LiteMoment added successfully")
       } else {
-         return responder(res, null, 400, false, "please select picture")
+         return responder(res, null, 400, false, "cant found file to upload.")
       }
 
    } catch (error) {
@@ -150,5 +157,4 @@ const addLiteMoment = async (req, res) => {
 }
 
 
-
-export { uploadrpofile, likepost, comment, getPosts ,addLiteMoment}
+export { uploadrpofile, likepost, comment, getPosts, addLiteMoment }

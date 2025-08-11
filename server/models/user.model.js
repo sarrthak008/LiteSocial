@@ -7,19 +7,23 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+
     email: {
         type: String,
         required: true
     },
+
     password: {
         type: String,
         required: true
     },
+
     user_name: {
         type: String,
         required: true,
         unique: true
     },
+
     user_info: {
         bio: {
             type: String,
@@ -38,6 +42,7 @@ const userSchema = new Schema({
             enum: ["public", "private"]
         }
     },
+    
     posts: [{
         type: Schema.Types.ObjectId,
         ref: "Posts"
@@ -69,28 +74,11 @@ const userSchema = new Schema({
 
     liteMoments: [
         {
-            moments_pic: {
-                type: String,
-                require: true
-            },
-
-            views: [
-                {
-                    type: Schema.Types.ObjectId,
-                    ref: "User"
-                }
-            ],
-
-            caption: {
-                type: String
-            },
-
-            addAt: {
-                type: Date,
-                default: Date.now()
-            }
+            type: Schema.Types.ObjectId,
+            ref: "LiteMoment"
         }
     ]
+
 
 })
 
