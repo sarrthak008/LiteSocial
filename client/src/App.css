@@ -19,3 +19,8 @@ body::selection{
   background-color: black;
   color: white;
 }
+
+.hideScrollbar::-webkit-scrollbar{
+  display: none;
+}
+

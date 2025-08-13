@@ -3,6 +3,8 @@ import responder from "../utils/responder.js"
 import uploadToImageKit from "../utils/uploadToImgKit.js"
 import Posts from "../models/post.model.js"
 
+
+
 const updateBioOrLocation = async (req, res) => {
    try {
       if (!req._id) {
@@ -29,7 +31,7 @@ const updateBioOrLocation = async (req, res) => {
 
 const uploadPost = async (req, res) => {
    try {
-      console.log(req._id, req.file)
+      // console.log(req._id, req.file)
 
       if (!req._id || !req.file) {
          return responder(res, null, 400, false, "something went wrong1")
@@ -57,7 +59,8 @@ const uploadPost = async (req, res) => {
          title: title,
          description: description,
          image: imgurl,
-         createdBy: req._id
+         createdBy: req._id,
+         hashtags : req.body.tags || "#LiteSocial"
       })
 
       findedUser.posts.push(newPost?._id);
