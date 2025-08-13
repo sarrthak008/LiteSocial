@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom'
 const DB_URL = import.meta.env.VITE_SERVER_URI
 
 import Navbar from '../components/Navbar'
-
+import LeftComp from '../components/LeftComp'
+import MiddleComp from '../components/MiddleComp'
 
 const Dasboard = () => {
 
@@ -36,6 +37,10 @@ const Dasboard = () => {
     return (
         <div className='h-screen w-screen overflow-hidden'>
              <Navbar/>
+             <div className='h-full w-screen bg-gray-200 py-[20px] flex'>
+                <LeftComp/>
+                <MiddleComp/>
+             </div>
         </div>
     )
 }

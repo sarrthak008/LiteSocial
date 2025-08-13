@@ -4,20 +4,35 @@ const store = createContext();
 
 const StoreProvider = ({ children }) => {
 
-const loadProfile = () => {
+    const loadProfile = () => {
         try {
 
             let userData = JSON.parse(localStorage.getItem("user_info")) || []
-
             if (userData) {
                 return ({
                     _id: userData._id,
                     name: userData.name,
                     email: userData.email,
-                    info: userData.user_info
+                    info: userData.user_info,
+                    username: userData.user_name
                 })
-            }else{
-               return false
+            } else {
+                return false
+            }
+
+        } catch (error) {
+            return false
+        }
+    }
+
+    const loadUserAllInfo = () => {
+        try {
+
+            let userData = JSON.parse(localStorage.getItem("user_info")) || []
+            if(userData){
+                return (userData)
+            } else {
+                return false
             }
 
         } catch (error) {
@@ -30,7 +45,8 @@ const loadProfile = () => {
     return (
         <store.Provider
             value={{
-                loadProfile
+                loadProfile,
+                loadUserAllInfo
             }}
         >
             {children}

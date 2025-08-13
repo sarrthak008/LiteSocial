@@ -45,6 +45,9 @@ const Addpost = ({setIsPostAddOpen}) => {
                 setTags("")
                 setFileData(null)
                 toast.dismiss()
+                window.location.reload()
+                window.location.reload()
+                window.location.reload()
                 setIsPostAddOpen(false)
               }else{
                 toast.error(response.data.message)
@@ -61,7 +64,7 @@ const Addpost = ({setIsPostAddOpen}) => {
 
 
     return (
-        <div className='h-screen w-screen fixed top-0 left-0  backdrop-blur-lg  overflow-y-scroll overflow-x-hidden hideScrollbar py-[50px]' onClick={
+        <div className='h-screen w-screen z-[2000] fixed top-0 left-0  backdrop-blur-lg  overflow-y-scroll overflow-x-hidden hideScrollbar py-[50px] bg-white' onClick={
         ()=>{
             setIsPostAddOpen(false)
         }

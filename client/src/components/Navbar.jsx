@@ -27,7 +27,7 @@ const Navbar = () => {
            <div className='flex items-center gap-[20px]'>
               <AppButton title="+ create" onclick={()=>handelAddPostOpen()}/>
 
-              <div className='h-[40px] w-[40px] bg-black rounded-full shrink-0 overflow-hidden border-1 border-black'>
+              <div className='h-[40px] w-[40px] bg-black rounded-xl shrink-0 overflow-hidden  '>
                  <img src={userInfo?.info?.userProfile}/>
               </div>
            </div>
