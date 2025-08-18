@@ -76,6 +76,37 @@ const Profile = () => {
         setIsProfileEditOpen(!isProfileEditOpen)
     }
 
+    const hadelProfileUpload = async (e) => {
+        try {
+            let file = e.target.files[0]
+            if (!file) {
+                return
+            } else {
+                let formdata = new FormData()
+                formdata.append("file", file)
+                toast.loading("uploading...")
+                let responce = await axios.post(`${DBURL}/uploadrpofile`, formdata, {
+                    withCredentials: true,
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                })
+
+                if (responce.data.success) {
+                    toast.success(responce.data.message)
+                    toast.dismiss()
+                    window.location.reload()
+                } else {
+                    toast.error(responce.data.message)
+                    toast.dismiss()
+                }
+            }
+
+        } catch (error) {
+            toast.error(error?.responce?.data?.message)
+        }
+    }
+
     useEffect(() => {
         setUserInfo(loadUserAllInfo())
     }, [])
@@ -88,9 +119,12 @@ const Profile = () => {
                 <div className='w-full min-h-[150px] flex gap-[10px] flex-wrap'>
 
                     <div>
-                        <div className='h-[90px] w-[90px] bg-red-200 rounded-md overflow-hidden'>
+                        <label className='h-[90px] w-[90px] bg-red-200 rounded-md overflow-hidden block cursor-pointer' htmlFor='user-profile'>
                             <img src={userInfo?.user_info?.userProfile} className='h-full w-full object-cover' />
-                        </div>
+                        </label>
+
+                        <input type='file' accept='image/*' className='hidden' id='user-profile' onChange={(e) => hadelProfileUpload(e)} encType="multipart/form-data" name="file"></input>
+
                         <h4 className='text-xl'>{userInfo?.user_name}</h4>
                         <p className='text-xl text-gray-400'>{userInfo?.email}</p>
                     </div>

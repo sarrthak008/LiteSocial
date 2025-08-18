@@ -50,7 +50,7 @@ const LeftComp = () => {
                     {
                         LEFT_SIDE_OPTIONS?.map((option, index) => {
                             return (
-                                <div className='flex  gap-[10px] cursor-pointer'>
+                                <div className='flex  gap-[10px] cursor-pointer' key={index}>
                                     <div className='text-black text-xl decoration-none'><i className={option.icon}></i></div>
                                 </div>
                             )
