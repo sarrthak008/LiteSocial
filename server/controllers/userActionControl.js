@@ -211,5 +211,20 @@ let getuser = async (req, res) => {
 
 }
 
+let getusers = async(req,res)=>{
+   try {
+      
+      let startValue = req.query.s || 0;
+      let endvalue = req.query.e  || 10;
 
-export { updateBioOrLocation, uploadPost, loadloginUserInfo, sendfollowRequest, acceptorRejectRequest, getuser }
+        let allUsers = await User.find().select("-password -__v -notifications -requets -posts -liteMoments -followers -following")
+
+      return responder(res, allUsers.slice(startValue,endvalue), 200, true, "users found")
+         
+   } catch (error) {
+      return responder(res, null, 500, false, `${error.message}`)
+   }
+}
+
+
+export { updateBioOrLocation, uploadPost, loadloginUserInfo, sendfollowRequest, acceptorRejectRequest, getuser ,getusers}

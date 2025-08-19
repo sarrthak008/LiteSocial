@@ -40,7 +40,7 @@ import connectdb from "./config/connectdb.js";
 // controllers
 import { signup, login } from "./controllers/authControl.js";
 import {uploadrpofile,likepost,comment,getPosts ,addLiteMoment} from "./controllers/postsControl.js"
-import {updateBioOrLocation,uploadPost,loadloginUserInfo,sendfollowRequest,acceptorRejectRequest ,getuser } from "./controllers/userActionControl.js"
+import {updateBioOrLocation,uploadPost,loadloginUserInfo,sendfollowRequest,acceptorRejectRequest ,getuser ,getusers} from "./controllers/userActionControl.js"
 
 //middlewares 
 import { verifyJwt } from "./middleware/verifyjwt.js";
@@ -60,7 +60,7 @@ app.get("/likepost/:postid",verifyJwt,likepost)
 app.post("/comment/:postid",verifyJwt,comment)
 app.get("/getposts",getPosts)
 app.post("/addlitemoment",verifyJwt,upload.single("moment"),addLiteMoment)
-
+app.get("/getusers",getusers)
 
 
 app.get("/health",(req,res)=>{
