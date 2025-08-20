@@ -41,12 +41,21 @@ const StoreProvider = ({ children }) => {
     }
 
 
+const isalredyFollow = (id)=>{
+       let res =  loadUserAllInfo().following.map((u)=>{
+          return u._id
+        })   
+    return res.includes(id)
+    }
+
+
 
     return (
         <store.Provider
             value={{
                 loadProfile,
-                loadUserAllInfo
+                loadUserAllInfo,
+                isalredyFollow
             }}
         >
             {children}
