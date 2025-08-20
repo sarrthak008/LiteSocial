@@ -28,7 +28,7 @@ const Navbar = () => {
               <AppButton title="+ create" onclick={()=>handelAddPostOpen()}/>
 
               <div className='h-[40px] w-[40px] bg-black rounded-xl shrink-0 overflow-hidden  '>
-                 <img src={userInfo?.info?.userProfile}/>
+                 <img src={userInfo?.info?.userProfile} className='h-[100%] w-[100%] object-cover'/>
               </div>
            </div>
     </div>
