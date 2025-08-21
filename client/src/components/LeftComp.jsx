@@ -4,7 +4,7 @@ import { LEFT_SIDE_OPTIONS } from '../utils/Data'
 
 const LeftComp = () => {
 
-    let { loadProfile ,setMiddleComNum } = useStore()
+    let { loadProfile, setMiddleComNum, middleCompNum } = useStore()
     const [userInfo, setuserInfo] = useState()
 
     useEffect(() => {
@@ -32,10 +32,17 @@ const LeftComp = () => {
                 {
                     LEFT_SIDE_OPTIONS?.map((option, index) => {
                         return (
-                            <div className='flex border-b-2 gap-[9px] cursor-pointer border-b-gray-300' key={index} onClick={()=>{setMiddleComNum(index)}}>
-                                <div className='text-gray-400'><i className={option.icon}></i></div>
-                                <div className='text-xl'>{option.name}</div>
-                            </div>
+                            <>
+                                {middleCompNum == index ? <div className='flex border-b-2 gap-[9px] cursor-pointer border-b-gray-300 opt-gredient' key={index} onClick={() => { setMiddleComNum(index) }}>
+                                    <div className='text-white'><i className={option.icon}></i></div>
+                                    <div className='text-xl text-gray-400'>{option.name}</div>
+                                </div> :
+                                    <div className='flex border-b-2 gap-[9px] cursor-pointer border-b-gray-300 relative' key={index} onClick={() => { setMiddleComNum(index) }}>
+                                        <div className='text-gray-400'><i className={option.icon}></i></div>
+                                        <div className='text-xl'>{option.name}</div>
+                                    </div>
+                                }
+                            </>
                         )
                     })
                 }
@@ -49,10 +56,17 @@ const LeftComp = () => {
                 <div className='fixed z-[1000] justify-between px-[8px] items-center bottom-0 bg-white h-12 w-full left-0 sm:hidden flex'>
                     {
                         LEFT_SIDE_OPTIONS?.map((option, index) => {
+
                             return (
-                                <div className='flex  gap-[10px] cursor-pointer' key={index} onClick={()=>{setMiddleComNum(index)}}>
-                                    <div className='text-black text-xl decoration-none'><i className={option.icon}></i></div>
-                                </div>
+                                <>
+                                    {middleCompNum == index ? <div className='flex  gap-[10px] cursor-pointer opt-gredient-sm' key={index} onClick={() => { setMiddleComNum(index) }}>
+                                        <div className='text-black text-xl decoration-none'><i className={`${option.icon} text-white`}></i></div>
+                                    </div> :
+                                        <div className='flex  gap-[10px] cursor-pointer' key={index} onClick={() => { setMiddleComNum(index) }}>
+                                            <div className='text-black text-xl decoration-none'><i className={option.icon}></i></div>
+                                        </div>
+                                    }
+                                </>
                             )
                         })
                     }

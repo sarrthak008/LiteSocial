@@ -17,7 +17,7 @@ const MiddleComp = () => {
     
     
     return (
-        <div className='w-[100vw] h-[87vh] fixed sm:static sm:w-[55vw]  bg-white rounded-md  shadow-gray-300 shadow-xl   overflow-y-scroll hideScrollbar overflow-x-hidden'>
+        <div className='w-[100vw] h-[87vh] fixed sm:static sm:w-[56vw]  bg-white rounded-md  shadow-gray-300 shadow-xl   overflow-y-scroll hideScrollbar overflow-x-hidden'>
             { 
               middleCompNum == 0 ? <Home /> :
               middleCompNum == 1 ? <Peoples /> :

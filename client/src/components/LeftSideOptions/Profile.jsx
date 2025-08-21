@@ -70,6 +70,7 @@ const Profile = () => {
     const [userInfo, setUserInfo] = useState()
     const [isProfileEditOpen, setIsProfileEditOpen] = useState(false)
     let { loadUserAllInfo } = useStore()
+   let [revPosts,setRevPosts] = useState([])
 
 
     const openEditProfile = () => {
@@ -111,6 +112,7 @@ const Profile = () => {
         setUserInfo(loadUserAllInfo())
     }, [])
 
+
     return (
         <>
             <div className='px-[20px] py-[10px] relative'>
@@ -141,7 +143,7 @@ const Profile = () => {
                                     <span className='flex items-center gap-[10px]'><i className="ri-map-pin-fill text-gray-600 text-sm"></i>{userInfo?.user_info?.location}</span>
                                 </div> : null
                         }
-                        <div className='text-xl mt-[1px]'><i class="ri-quill-pen-ai-fill text-sm text-gray-600"></i> {userInfo?.user_info?.bio}</div>
+                        <div className='text-xl mt-[1px]'><i className="ri-quill-pen-ai-fill text-sm text-gray-600"></i> {userInfo?.user_info?.bio}</div>
                     </div>
                 </div>
 
@@ -159,7 +161,7 @@ const Profile = () => {
                     {
                         userInfo?.posts?.map((postInfo, index) => {
                             return (
-                                <div className=' w-[250px] h-[240px] sm:h-[350px] sm:w-[300px] m-[4px] overflow-hidden border-[0.1px] cursor-pointer    bg-red-100 shrink-0 border-gray-600'>
+                                <div className=' w-[280px] h-[240px] sm:h-[350px] sm:w-[350px] m-[4px] overflow-hidden border-[0.1px] cursor-pointer  bg-red-100 shrink-0 border-gray-600 ' key={index}>
                                     <img src={postInfo.image} className='h-full w-full object-cover' />
                                 </div>
                             )

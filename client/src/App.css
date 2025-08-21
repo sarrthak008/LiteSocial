@@ -24,3 +24,10 @@ body::selection{
   display: none;
 }
 
+.opt-gredient{
+  background: linear-gradient(to right , black,#000000a7,#000000a4,transparent);
+}
+
+.opt-gredient-sm{
+  background: linear-gradient(to top , black,#000000a7,#000000a4,transparent);
+}

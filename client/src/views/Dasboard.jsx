@@ -8,6 +8,7 @@ const DB_URL = import.meta.env.VITE_SERVER_URI
 import Navbar from '../components/Navbar'
 import LeftComp from '../components/LeftComp'
 import MiddleComp from '../components/MiddleComp'
+import RightComp from '../components/RightComp'
 
 const Dasboard = () => {
 
@@ -40,6 +41,7 @@ const Dasboard = () => {
              <div className='h-full w-screen bg-gray-200 py-[20px] flex'>
                 <LeftComp/>
                 <MiddleComp/>
+                <RightComp/>
              </div>
         </div>
     )
