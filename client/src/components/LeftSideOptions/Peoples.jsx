@@ -1,6 +1,7 @@
 import React, { useEffect ,useState } from 'react'
 import axios from 'axios'
 import UserCard from "../UserCard"
+import { useStore } from '../../context/Store'
 
 const DBURL = import.meta.env.VITE_SERVER_URI 
 
@@ -8,6 +9,7 @@ const DBURL = import.meta.env.VITE_SERVER_URI
 
 const Peoples = () => {
   const  [peoples,setPeoples] =  useState([])
+  let {isalredyFollow} = useStore()
   
   const loadUsers = async ()=>{
      try {
@@ -34,7 +36,7 @@ const Peoples = () => {
           {
             peoples?.map((people,index)=>{
                return(
-                 <UserCard key={index} data={people}/>
+                !isalredyFollow(people?._id) ? <UserCard key={index} data={people}/> :null
                )
             })
           }

@@ -1,8 +1,11 @@
-import { createContext, use, useContext, useEffect } from "react";
+import { createContext, use, useContext, useEffect ,useState} from "react";
 
 const store = createContext();
 
 const StoreProvider = ({ children }) => {
+
+
+    const [middleCompNum, setMiddleComNum] = useState(0)
 
     const loadProfile = () => {
         try {
@@ -41,7 +44,7 @@ const StoreProvider = ({ children }) => {
     }
 
 
-const isalredyFollow = (id)=>{
+    const isalredyFollow = (id)=>{
        let res =  loadUserAllInfo().following.map((u)=>{
           return u._id
         })   
@@ -50,12 +53,15 @@ const isalredyFollow = (id)=>{
 
 
 
+
     return (
         <store.Provider
             value={{
                 loadProfile,
                 loadUserAllInfo,
-                isalredyFollow
+                isalredyFollow,
+                middleCompNum,
+                setMiddleComNum
             }}
         >
             {children}

@@ -4,7 +4,7 @@ import { LEFT_SIDE_OPTIONS } from '../utils/Data'
 
 const LeftComp = () => {
 
-    let { loadProfile } = useStore()
+    let { loadProfile ,setMiddleComNum } = useStore()
     const [userInfo, setuserInfo] = useState()
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const LeftComp = () => {
                 {
                     LEFT_SIDE_OPTIONS?.map((option, index) => {
                         return (
-                            <div className='flex border-b-2 gap-[9px] cursor-pointer border-b-gray-300' key={index}>
+                            <div className='flex border-b-2 gap-[9px] cursor-pointer border-b-gray-300' key={index} onClick={()=>{setMiddleComNum(index)}}>
                                 <div className='text-gray-400'><i className={option.icon}></i></div>
                                 <div className='text-xl'>{option.name}</div>
                             </div>
@@ -50,7 +50,7 @@ const LeftComp = () => {
                     {
                         LEFT_SIDE_OPTIONS?.map((option, index) => {
                             return (
-                                <div className='flex  gap-[10px] cursor-pointer' key={index}>
+                                <div className='flex  gap-[10px] cursor-pointer' key={index} onClick={()=>{setMiddleComNum(index)}}>
                                     <div className='text-black text-xl decoration-none'><i className={option.icon}></i></div>
                                 </div>
                             )
