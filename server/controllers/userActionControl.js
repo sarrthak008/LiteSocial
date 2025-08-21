@@ -79,7 +79,7 @@ const loadloginUserInfo = async (req, res) => {
       if (!req._id) {
          return responder(res, null, 400, false, "something went wrong");
       }
-      let findedUser = await User.findById(req._id).select("-password  -__v").populate("posts followers following liteMoments")
+      let findedUser = await User.findById(req._id).select("-password  -__v").populate("posts").populate("liteMoments").populate("following","user_info name user_name _id").populate("followers","user_info name user_name _id").populate("requets","user_info name user_name _id").populate("liteMoments")
       if (!findedUser) {
          return responder(res, null, 400, false, "user not found")
       } else {

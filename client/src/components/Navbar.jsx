@@ -3,6 +3,7 @@ import { BRAND_NAME } from '../utils/Data'
 import AppButton from './AppButton'
 import { useStore } from '../context/Store'
 import Addpost from './Addpost'
+import Notification from './Notification'
 
 const Navbar = () => {
 
@@ -26,10 +27,7 @@ const Navbar = () => {
       
            <div className='flex items-center gap-[20px]'>
               <AppButton title="+ create" onclick={()=>handelAddPostOpen()}/>
-
-              <div className='h-[40px] w-[40px] bg-black rounded-xl shrink-0 overflow-hidden  '>
-                 <img src={userInfo?.info?.userProfile} className='h-[100%] w-[100%] object-cover'/>
-              </div>
+              <Notification/>
            </div>
     </div>
     {isPostAddOpen ?  <Addpost setIsPostAddOpen={setIsPostAddOpen}/> :  null }
